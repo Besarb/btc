@@ -11,14 +11,14 @@ import UIKit
 
 class BTCRequest {
 	/// API here: https://www.bitstamp.net/api/
-	class func fetch(symbol: String, _ completionHandler:@escaping((_ success: Bool) -> ())) {
+	class func fetch(symbol: String, _ completionHandler:@escaping((_ currency: Currency?) -> ())) {
 		//NSLog("***** FETCH BTC LAST PRICE: \(symbol.uppercased()) *****")
 		
-		if UIDevice.isSimulator { completionHandler(true); return }
+		if UIDevice.isSimulator { completionHandler(nil); return }
 		
 		let strUrl = "https://www.bitstamp.net/api/v2/ticker/\(symbol)/"
 		
-		guard let url = URL(string: strUrl) else { completionHandler(false); return }
+		guard let url = URL(string: strUrl) else { completionHandler(nil); return }
 		
 		let configuration = URLSessionConfiguration.default
 		configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
@@ -31,7 +31,7 @@ class BTCRequest {
 				guard let data = optionalData else {
 					if let e = optionalError {
 						print("ERROR: \(e.localizedDescription)")
-						completionHandler(false)
+						completionHandler(nil)
 					} else {
 						assertionFailure()
 					}
@@ -42,8 +42,9 @@ class BTCRequest {
 				
 				if let currency = BTCHelper.currency(symbol) {
 					currency.json = data.jsonDictionary()
+					completionHandler(currency)
 				}
-				completionHandler(true)
+				completionHandler(nil)
 			})
 		}
 		
@@ -77,8 +78,6 @@ class BTCRequest {
 			
 			let json: [[String: Any]] = data.jsonArray()
 			completionHandler(json)
-			//DispatchQueue.main.async(execute: {
-			//})
 		}
 		
 		task.resume()

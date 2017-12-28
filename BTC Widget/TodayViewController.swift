@@ -21,14 +21,10 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 		self.tableView.separatorStyle = .none
 		self.tableView.registerReusableCell(TableCurrencyCell.self)
 		
-		if let eth = BTCHelper.currency("etheur") {
-			self.currencies.append(eth)
-		}
-		if let ltc = BTCHelper.currency("ltceur") {
-			self.currencies.append(ltc)
-		}
-		if let bch = BTCHelper.currency("bcheur") {
-			self.currencies.append(bch)
+		let list: [String] = ["eth", "xrp", "ltc", "bch"]
+		for symbol in list {
+			guard let c = BTCHelper.currency("\(symbol)eur") else { continue }
+			self.currencies.append(c)
 		}
     }
 	
@@ -71,7 +67,7 @@ extension TodayViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 50.0
+		return 25.0
 	}
 	
 	//MARK: UITableViewDelegate
@@ -82,13 +78,8 @@ extension TodayViewController {
 
 class TableCurrencyCell: UITableViewCell {
 	
-	var currency: Currency!
-	var lblCurrency: UILabel!
-	var lblDate: UILabel!
-	var lblBuy: UILabel!
-	var lblSell: UILabel!
-	
-	private var notifId: Any?
+	private var lblCurrency: UILabel!
+	private var lblSell: UILabel!
 	
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -98,64 +89,28 @@ class TableCurrencyCell: UITableViewCell {
 		self.accessoryType = .none
 		self.selectionStyle = .none
 		
-		let buy = UIComponents.label(parent: self.contentView, bgColor: bgColor, text: "Buy:", textColor: .gray, fontSize: 12.0, textAlignment: .right)
-		let sell = UIComponents.label(parent: self.contentView, bgColor: bgColor, text: "Sell:", textColor: .gray, fontSize: 12.0, textAlignment: .right)
-		
 		self.lblCurrency = UIComponents.label(parent: self.contentView, bgColor: bgColor, text: "-", textColor: .black)
-		self.lblDate = UIComponents.label(parent: self.contentView, bgColor: bgColor, text: "-", textColor: .gray)
-		self.lblBuy = UIComponents.label(parent: self.contentView, bgColor: bgColor, text: "-", textColor: .black, textAlignment: .right)
 		self.lblSell = UIComponents.label(parent: self.contentView, bgColor: bgColor, text: "-", textColor: .black, textAlignment: .right)
 		
-		self.lblCurrency.font = UIFont.boldSystemFont(ofSize: 20.0)
-		self.lblDate.font = UIFont.italicSystemFont(ofSize: 11.0)
-		self.lblBuy.font = UIFont.boldSystemFont(ofSize: 15.0)
-		self.lblSell.font = UIFont.boldSystemFont(ofSize: 15.0)
+		self.lblCurrency.font = UIFont.boldSystemFont(ofSize: 13.0)
+		self.lblSell.font = UIFont.boldSystemFont(ofSize: 13.0)
 		
-		var cm = ConstraintsManager(views: ["buy": buy, "sell": sell, "lblCurrency": lblCurrency, "lblDate": lblDate, "lblBuy": lblBuy, "lblSell": lblSell],
-		                            metrics: ["viewChangeWidth": 4.0, "priceWidth": 80.0, "margin": 4.0])
+		var cm = ConstraintsManager(views: ["lblCurrency": lblCurrency, "lblSell": lblSell])
 		
-		cm.add("H:|-[lblCurrency]-(>=10)-[buy][lblBuy(priceWidth)]-|")
-		cm.add("H:|-[lblDate]-(>=10)-[sell][lblSell(priceWidth)]-|")
-		
-		cm.add("V:|-(margin)-[lblCurrency][lblDate(13)]-(margin)-|")
-		cm.add(item: buy, attribute: .bottom, relatedBy: .equal, toItem: self.contentView, attribute: .centerY, multiplier: 1.0, constant: -2.0)
-		cm.add(item: self.lblBuy, attribute: .bottom, relatedBy: .equal, toItem: self.contentView, attribute: .centerY, multiplier: 1.0, constant: -2.0)
-		
-		cm.add(item: sell, attribute: .top, relatedBy: .equal, toItem: self.contentView, attribute: .centerY, multiplier: 1.0, constant: 2.0)
-		cm.add(item: self.lblSell, attribute: .top, relatedBy: .equal, toItem: self.contentView, attribute: .centerY, multiplier: 1.0, constant: 2.0)
+		cm.add("H:|-[lblCurrency]-(>=10)-[lblSell]-|")
+		cm.add("V:|[lblCurrency]|")
+		cm.add("V:|[lblSell]|")
 		
 		cm.activate()
 	}
 	
-	deinit {
-		if let nId = self.notifId {
-			NotificationCenter.default.removeObserver(nId)
-		}
-	}
-	
-	private func updateNotificationListener() {
-		if let nId = self.notifId {
-			NotificationCenter.default.removeObserver(nId)
-		}
-		
-		self.notifId = NotificationCenter.default.addObserver(forName: Notification.Name(self.currency.symbol), object: nil, queue: .main) { [unowned self] notif in
-			self.updatePrices()
-		}
-	}
-	
 	func update(_ currency: Currency) {
-		self.currency = currency
+		self.lblCurrency.text = currency.name
 		
-		self.updateNotificationListener()
-		
-		self.lblCurrency.text = self.currency.name
-		self.updatePrices()
-	}
-	
-	private func updatePrices() {
-		self.lblBuy.text = self.currency.buy.fmt(decimals: self.currency.decimals)
-		self.lblSell.text = self.currency.sell.fmt(decimals: self.currency.decimals)
-		self.lblDate.text = self.currency.date.fmt(style: .BothMedium)
+		BTCRequest.fetch(symbol: currency.symbol) { (currency) in
+			guard let c = currency else { return }
+			self.lblSell.text = c.sell.fmt(decimals: c.decimals)
+		}
 	}
 	
 	required init(coder aDecoder: NSCoder) {

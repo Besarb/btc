@@ -12,10 +12,10 @@ import UIKit
 class BTCHelper {
 	static let availableCurrencies: [String: Currency] = [
 		"etheur": Currency("etheur", "Ethereum/EUR"),
+		"xrpeur": Currency("xrpeur", "Ripple/EUR"),
 		"ltceur": Currency("ltceur", "LiteCoin/EUR"),
-		"btceur": Currency("btceur", "Bitcoin/EUR"),
 		"bcheur": Currency("bcheur", "BTCash/EUR"),
-		"xrpeur": Currency("xrpeur", "Ripple/EUR")]
+		"btceur": Currency("btceur", "Bitcoin/EUR")]
 
 	class var symbols: [String] {
 		let list = Array(BTCHelper.availableCurrencies.keys)
@@ -256,9 +256,9 @@ class Currency: Comparable {
 	}
 	
 	func update() {
-		BTCRequest.fetch(symbol: self.symbol){ [unowned self] success in
-			if !success { return }
-			NotificationCenter.default.post(name: Notification.Name(self.symbol), object: self)
+		BTCRequest.fetch(symbol: self.symbol){ [unowned self] currency in
+			guard let c = currency else { return }
+			NotificationCenter.default.post(name: Notification.Name(self.symbol), object: c)
 			NotificationCenter.default.post(name: Notification.Name(Currency.notifName), object: nil)
 		}
 	}
