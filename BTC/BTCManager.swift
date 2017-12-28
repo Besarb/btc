@@ -109,21 +109,6 @@ class BTCHelper {
 	}
 }
 
-extension Array where Element: Position {
-	func index(of pos: Position) -> Int {
-		return self.index(orderId: pos.orderId)
-	}
-	
-	func index(orderId: Int) -> Int {
-		for (index, pos) in self.enumerated() {
-			if pos.orderId == orderId {
-				return index
-			}
-		}
-		return -1
-	}
-}
-
 extension BTCHelper {
 	class func loadJson(fileName: String) -> [String: Any] {
 		do {
@@ -157,7 +142,29 @@ extension BTCHelper {
 	}
 	
 	class func fetchCurrenciesInfo() {
-		
+		BTCRequest.fetchCurrenciesInfo { (jsonArray) in
+			for json in jsonArray {
+				guard let symbol = json["url_symbol"] as? String else { continue }
+				guard let decimals = json["base_decimals"] as? Int else { continue }
+				guard let currency = BTCHelper.currency(symbol) else { continue }
+				currency.decimals = decimals
+			}
+		}
+	}
+}
+
+extension Array where Element: Position {
+	func index(of pos: Position) -> Int {
+		return self.index(orderId: pos.orderId)
+	}
+	
+	func index(orderId: Int) -> Int {
+		for (index, pos) in self.enumerated() {
+			if pos.orderId == orderId {
+				return index
+			}
+		}
+		return -1
 	}
 }
 

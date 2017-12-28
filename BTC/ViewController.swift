@@ -36,6 +36,7 @@ class ViewController: UITableViewController {
 		
 		self.updateNavButtons()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+			self.fetchCurrenciesInfo()
             self.reloadAll()
 			self.fetchCurrencies()
 			self.startTimer()
@@ -58,7 +59,11 @@ class ViewController: UITableViewController {
 		self.positions = BTCHelper.loadPositions().sorted(by: { $0.orderId < $1.orderId })
 		self.footerView.positions = self.positions
 	}
-
+	
+	private func fetchCurrenciesInfo() {
+		BTCHelper.fetchCurrenciesInfo()
+	}
+	
 	private func saveCurrencies() {
 		self.stopTimer()
 		BTCHelper.saveVisibleCurrencies(self.currencies)

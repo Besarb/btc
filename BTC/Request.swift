@@ -49,6 +49,40 @@ class BTCRequest {
 		
 		task.resume()
 	}
+	
+	class func fetchCurrenciesInfo(_ completionHandler:@escaping((_ jsonArray: [[String: Any]]) -> ())) {
+		if UIDevice.isSimulator { completionHandler([]); return }
+		
+		let strUrl = "https://www.bitstamp.net/api/v2/trading-pairs-info/"
+		
+		guard let url = URL(string: strUrl) else { completionHandler([]); return }
+
+		let configuration = URLSessionConfiguration.default
+		configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
+		
+		let session = URLSession(configuration: configuration, delegate: BTCRequestDelegate(), delegateQueue: OperationQueue.main)
+		
+		let task = session.dataTask(with: url) { (optionalData, optionalResponse, optionalError) in
+			guard let data = optionalData else {
+				if let e = optionalError {
+					print("ERROR: \(e.localizedDescription)")
+					completionHandler([])
+				} else {
+					assertionFailure()
+				}
+				return
+			}
+			
+			/**/
+			
+			let json: [[String: Any]] = data.jsonArray()
+			completionHandler(json)
+			//DispatchQueue.main.async(execute: {
+			//})
+		}
+		
+		task.resume()
+	}
 }
 
 class BTCRequestDelegate: NSObject, URLSessionDelegate {
