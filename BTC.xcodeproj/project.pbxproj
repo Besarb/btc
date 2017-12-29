@@ -10,7 +10,6 @@
 		EA302A221F4B2655008C3A76 /* UIComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA503B651F46D7E700B28AE3 /* UIComponents.swift */; };
 		EA302A231F4B2679008C3A76 /* ConstraintsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA503B671F46D97C00B28AE3 /* ConstraintsManager.swift */; };
 		EA302A241F4B267D008C3A76 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA503B611F46C57400B28AE3 /* Extensions.swift */; };
-		EA302A251F4B2681008C3A76 /* Prefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA503B6B1F46E9FE00B28AE3 /* Prefs.swift */; };
 		EA302A261F4B2688008C3A76 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA503B631F46C8F900B28AE3 /* Request.swift */; };
 		EA302A2A1F4C1EF7008C3A76 /* BTCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA302A291F4C1EF7008C3A76 /* BTCManager.swift */; };
 		EA302A2B1F4C1EF7008C3A76 /* BTCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA302A291F4C1EF7008C3A76 /* BTCManager.swift */; };
@@ -23,7 +22,6 @@
 		EA503B661F46D7E700B28AE3 /* UIComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA503B651F46D7E700B28AE3 /* UIComponents.swift */; };
 		EA503B681F46D97C00B28AE3 /* ConstraintsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA503B671F46D97C00B28AE3 /* ConstraintsManager.swift */; };
 		EA503B6A1F46DFE700B28AE3 /* AddItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA503B691F46DFE700B28AE3 /* AddItemVC.swift */; };
-		EA503B6C1F46E9FE00B28AE3 /* Prefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA503B6B1F46E9FE00B28AE3 /* Prefs.swift */; };
 		EA503B741F4B23B600B28AE3 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA503B731F4B23B600B28AE3 /* NotificationCenter.framework */; };
 		EA503B771F4B23B600B28AE3 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA503B761F4B23B600B28AE3 /* TodayViewController.swift */; };
 		EA503B7A1F4B23B600B28AE3 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA503B781F4B23B600B28AE3 /* MainInterface.storyboard */; };
@@ -69,7 +67,6 @@
 		EA503B651F46D7E700B28AE3 /* UIComponents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIComponents.swift; sourceTree = "<group>"; };
 		EA503B671F46D97C00B28AE3 /* ConstraintsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintsManager.swift; sourceTree = "<group>"; };
 		EA503B691F46DFE700B28AE3 /* AddItemVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemVC.swift; sourceTree = "<group>"; };
-		EA503B6B1F46E9FE00B28AE3 /* Prefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Prefs.swift; sourceTree = "<group>"; };
 		EA503B711F4B23B600B28AE3 /* BTC Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "BTC Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA503B731F4B23B600B28AE3 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		EA503B761F4B23B600B28AE3 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -122,7 +119,6 @@
 				EA503B4F1F45E37800B28AE3 /* AppDelegate.swift */,
 				EA503B511F45E37800B28AE3 /* ViewController.swift */,
 				EA503B691F46DFE700B28AE3 /* AddItemVC.swift */,
-				EA503B6B1F46E9FE00B28AE3 /* Prefs.swift */,
 				EA503B611F46C57400B28AE3 /* Extensions.swift */,
 				EA503B651F46D7E700B28AE3 /* UIComponents.swift */,
 				EA503B671F46D97C00B28AE3 /* ConstraintsManager.swift */,
@@ -278,7 +274,6 @@
 				EA503B621F46C57400B28AE3 /* Extensions.swift in Sources */,
 				EA503B661F46D7E700B28AE3 /* UIComponents.swift in Sources */,
 				EA503B501F45E37800B28AE3 /* AppDelegate.swift in Sources */,
-				EA503B6C1F46E9FE00B28AE3 /* Prefs.swift in Sources */,
 				EA503B6A1F46DFE700B28AE3 /* AddItemVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -290,7 +285,6 @@
 				EA302A231F4B2679008C3A76 /* ConstraintsManager.swift in Sources */,
 				EA302A261F4B2688008C3A76 /* Request.swift in Sources */,
 				EA503B771F4B23B600B28AE3 /* TodayViewController.swift in Sources */,
-				EA302A251F4B2681008C3A76 /* Prefs.swift in Sources */,
 				EA302A221F4B2655008C3A76 /* UIComponents.swift in Sources */,
 				EA302A241F4B267D008C3A76 /* Extensions.swift in Sources */,
 				EA302A2B1F4C1EF7008C3A76 /* BTCManager.swift in Sources */,

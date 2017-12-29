@@ -42,5 +42,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		UITableViewCell.appearance().backgroundColor = .bg
 	}
+	
+	func applicationDidBecomeActive(_ application: UIApplication) {
+		BTCHelper.fetchCurrenciesInfo()
+	}
 }
 

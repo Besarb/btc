@@ -263,3 +263,19 @@ class Currency: Comparable {
 		}
 	}
 }
+
+enum ItemKey: String {
+	case undefined = ""
+	case orderId = "OrderID"
+	case symbol = "Symbol"
+	case amount = "Amount"
+	case openPrice = "OpenPrice"
+	case buyValue = "BuyValue"
+	case openDate = "OpenDate"
+	case closeDate = "CloseDate"
+	case closePrice = "ClosePrice"
+	
+	case savedPositions = "BTXSavedItems"
+	case archivedPositions = "BTXArchivedItems"
+	case lastPrice = "BTCLastPrice"
+}
