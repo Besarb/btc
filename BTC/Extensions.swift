@@ -335,7 +335,7 @@ public extension UIColor {
 	class var navBarBg: UIColor { get { return UIColor(white: 0.15, alpha: 1.0) } }
 	
 	class var bg: UIColor { get { return UIColor.black } }
-	class var bgSecondary: UIColor { get { return UIColor.lightGray } }
+	class var bgSecondary: UIColor { get { return UIColor(white: 0.15, alpha: 1.0) } }
 	class var text: UIColor { get { return UIColor.white } }
 	class var textSecondary: UIColor { get { return UIColor.lightGray } }
 	

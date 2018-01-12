@@ -11,8 +11,8 @@
 		EA302A231F4B2679008C3A76 /* ConstraintsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA503B671F46D97C00B28AE3 /* ConstraintsManager.swift */; };
 		EA302A241F4B267D008C3A76 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA503B611F46C57400B28AE3 /* Extensions.swift */; };
 		EA302A261F4B2688008C3A76 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA503B631F46C8F900B28AE3 /* Request.swift */; };
-		EA302A2A1F4C1EF7008C3A76 /* BTCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA302A291F4C1EF7008C3A76 /* BTCManager.swift */; };
-		EA302A2B1F4C1EF7008C3A76 /* BTCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA302A291F4C1EF7008C3A76 /* BTCManager.swift */; };
+		EA302A2A1F4C1EF7008C3A76 /* BTCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA302A291F4C1EF7008C3A76 /* BTCHelper.swift */; };
+		EA302A2B1F4C1EF7008C3A76 /* BTCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA302A291F4C1EF7008C3A76 /* BTCHelper.swift */; };
 		EA503B501F45E37800B28AE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA503B4F1F45E37800B28AE3 /* AppDelegate.swift */; };
 		EA503B521F45E37800B28AE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA503B511F45E37800B28AE3 /* ViewController.swift */; };
 		EA503B571F45E37800B28AE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA503B561F45E37800B28AE3 /* Assets.xcassets */; };
@@ -26,6 +26,9 @@
 		EA503B771F4B23B600B28AE3 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA503B761F4B23B600B28AE3 /* TodayViewController.swift */; };
 		EA503B7A1F4B23B600B28AE3 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA503B781F4B23B600B28AE3 /* MainInterface.storyboard */; };
 		EA503B7E1F4B23B600B28AE3 /* BTC Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = EA503B711F4B23B600B28AE3 /* BTC Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		EAC4A9F82007C232005FC6B0 /* CryptoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC4A9F72007C232005FC6B0 /* CryptoDataSource.swift */; };
+		EAE3B14C2008FEA000F3F0D6 /* SQChartsFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAE3B14B2008FE9500F3F0D6 /* SQChartsFramework.framework */; };
+		EAE3B14D2008FEA000F3F0D6 /* SQChartsFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAE3B14B2008FE9500F3F0D6 /* SQChartsFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +38,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = EA503B701F4B23B600B28AE3;
 			remoteInfo = "BTC Widget";
+		};
+		EAE3B1482008FE9500F3F0D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EAE3B1432008FE9500F3F0D6 /* SQChartsFramework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EAFEB8571F5048A200E3981C;
+			remoteInfo = SQChartView;
+		};
+		EAE3B14A2008FE9500F3F0D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EAE3B1432008FE9500F3F0D6 /* SQChartsFramework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EAFEB8481F502F0D00E3981C;
+			remoteInfo = SQChartsFramework;
+		};
+		EAE3B14E2008FEA000F3F0D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EAE3B1432008FE9500F3F0D6 /* SQChartsFramework.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = EAFEB8471F502F0D00E3981C;
+			remoteInfo = SQChartsFramework;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -50,12 +74,23 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EAC4AA0020089925005FC6B0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EAE3B14D2008FEA000F3F0D6 /* SQChartsFramework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		EA302A271F4B394C008C3A76 /* BTC Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "BTC Widget.entitlements"; sourceTree = "<group>"; };
 		EA302A281F4B399A008C3A76 /* BTC.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BTC.entitlements; sourceTree = "<group>"; };
-		EA302A291F4C1EF7008C3A76 /* BTCManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTCManager.swift; sourceTree = "<group>"; };
+		EA302A291F4C1EF7008C3A76 /* BTCHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTCHelper.swift; sourceTree = "<group>"; };
 		EA503B4C1F45E37800B28AE3 /* BTC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BTC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA503B4F1F45E37800B28AE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA503B511F45E37800B28AE3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -72,6 +107,8 @@
 		EA503B761F4B23B600B28AE3 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		EA503B791F4B23B600B28AE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		EA503B7B1F4B23B600B28AE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EAC4A9F72007C232005FC6B0 /* CryptoDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoDataSource.swift; sourceTree = "<group>"; };
+		EAE3B1432008FE9500F3F0D6 /* SQChartsFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQChartsFramework.xcodeproj; path = SQChartsFramework/SQChartsFramework.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAE3B14C2008FEA000F3F0D6 /* SQChartsFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,6 +136,7 @@
 			children = (
 				EA503B4E1F45E37800B28AE3 /* BTC */,
 				EA503B751F4B23B600B28AE3 /* BTC Widget */,
+				EAE3B1432008FE9500F3F0D6 /* SQChartsFramework.xcodeproj */,
 				EA503B721F4B23B600B28AE3 /* Frameworks */,
 				EA503B4D1F45E37800B28AE3 /* Products */,
 			);
@@ -115,6 +154,7 @@
 		EA503B4E1F45E37800B28AE3 /* BTC */ = {
 			isa = PBXGroup;
 			children = (
+				EAC4A9F72007C232005FC6B0 /* CryptoDataSource.swift */,
 				EA302A281F4B399A008C3A76 /* BTC.entitlements */,
 				EA503B4F1F45E37800B28AE3 /* AppDelegate.swift */,
 				EA503B511F45E37800B28AE3 /* ViewController.swift */,
@@ -123,7 +163,7 @@
 				EA503B651F46D7E700B28AE3 /* UIComponents.swift */,
 				EA503B671F46D97C00B28AE3 /* ConstraintsManager.swift */,
 				EA503B631F46C8F900B28AE3 /* Request.swift */,
-				EA302A291F4C1EF7008C3A76 /* BTCManager.swift */,
+				EA302A291F4C1EF7008C3A76 /* BTCHelper.swift */,
 				EA503B561F45E37800B28AE3 /* Assets.xcassets */,
 				EA503B581F45E37800B28AE3 /* LaunchScreen.storyboard */,
 				EA503B5B1F45E37800B28AE3 /* Info.plist */,
@@ -150,6 +190,15 @@
 			path = "BTC Widget";
 			sourceTree = "<group>";
 		};
+		EAE3B1442008FE9500F3F0D6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EAE3B1492008FE9500F3F0D6 /* SQChartView.app */,
+				EAE3B14B2008FE9500F3F0D6 /* SQChartsFramework.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -161,11 +210,13 @@
 				EA503B491F45E37800B28AE3 /* Frameworks */,
 				EA503B4A1F45E37800B28AE3 /* Resources */,
 				EA503B821F4B23B600B28AE3 /* Embed App Extensions */,
+				EAC4AA0020089925005FC6B0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				EA503B7D1F4B23B600B28AE3 /* PBXTargetDependency */,
+				EAE3B14F2008FEA000F3F0D6 /* PBXTargetDependency */,
 			);
 			name = BTC;
 			productName = BTC;
@@ -234,6 +285,12 @@
 			mainGroup = EA503B431F45E37800B28AE3;
 			productRefGroup = EA503B4D1F45E37800B28AE3 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = EAE3B1442008FE9500F3F0D6 /* Products */;
+					ProjectRef = EAE3B1432008FE9500F3F0D6 /* SQChartsFramework.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				EA503B4B1F45E37800B28AE3 /* BTC */,
@@ -241,6 +298,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		EAE3B1492008FE9500F3F0D6 /* SQChartView.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = SQChartView.app;
+			remoteRef = EAE3B1482008FE9500F3F0D6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EAE3B14B2008FE9500F3F0D6 /* SQChartsFramework.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SQChartsFramework.framework;
+			remoteRef = EAE3B14A2008FE9500F3F0D6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		EA503B4A1F45E37800B28AE3 /* Resources */ = {
@@ -267,9 +341,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA302A2A1F4C1EF7008C3A76 /* BTCManager.swift in Sources */,
+				EA302A2A1F4C1EF7008C3A76 /* BTCHelper.swift in Sources */,
 				EA503B681F46D97C00B28AE3 /* ConstraintsManager.swift in Sources */,
 				EA503B521F45E37800B28AE3 /* ViewController.swift in Sources */,
+				EAC4A9F82007C232005FC6B0 /* CryptoDataSource.swift in Sources */,
 				EA503B641F46C8F900B28AE3 /* Request.swift in Sources */,
 				EA503B621F46C57400B28AE3 /* Extensions.swift in Sources */,
 				EA503B661F46D7E700B28AE3 /* UIComponents.swift in Sources */,
@@ -287,7 +362,7 @@
 				EA503B771F4B23B600B28AE3 /* TodayViewController.swift in Sources */,
 				EA302A221F4B2655008C3A76 /* UIComponents.swift in Sources */,
 				EA302A241F4B267D008C3A76 /* Extensions.swift in Sources */,
-				EA302A2B1F4C1EF7008C3A76 /* BTCManager.swift in Sources */,
+				EA302A2B1F4C1EF7008C3A76 /* BTCHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,6 +373,11 @@
 			isa = PBXTargetDependency;
 			target = EA503B701F4B23B600B28AE3 /* BTC Widget */;
 			targetProxy = EA503B7C1F4B23B600B28AE3 /* PBXContainerItemProxy */;
+		};
+		EAE3B14F2008FEA000F3F0D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SQChartsFramework;
+			targetProxy = EAE3B14E2008FEA000F3F0D6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

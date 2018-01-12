@@ -8,10 +8,11 @@
 
 import UIKit
 import UserNotifications
+import SQChartsFramework
 
 class ViewController: UITableViewController {
 
-	private var currencies: [Currency] = []
+	private var currencies: [Any] = []
 	private var positions: [Position] = []
 	private var refreshTimer: Timer?
 	private var footerView = OrdersFooterView()
@@ -25,10 +26,18 @@ class ViewController: UITableViewController {
 		self.tableView.separatorStyle = .none
 		
 		self.tableView.registerReusableCell(TableCurrencyCell.self)
+		self.tableView.registerReusableCell(TableCurrencyChartCell.self)
 		self.tableView.registerReusableCell(TablePositionCell.self)
 		
 		let btnReload = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(reloadAll))
 		self.navigationItem.setLeftBarButton(btnReload, animated: true)
+		
+		NotificationCenter.default.addObserver(forName: .UIApplicationWillResignActive, object: nil, queue: .main){ [unowned self] notif in
+			self.currencies = self.currencies.filter {
+				$0 is Currency
+			}
+			self.tableView.reloadData()
+		}
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -61,7 +70,8 @@ class ViewController: UITableViewController {
 	
 	private func saveCurrencies() {
 		self.stopTimer()
-		BTCHelper.saveVisibleCurrencies(self.currencies)
+		let list: [Currency] = self.currencies.filter({ $0 is Currency }) as! [Currency]
+		BTCHelper.saveVisibleCurrencies(list)
 		self.startTimer()
 	}
 	
@@ -81,7 +91,8 @@ class ViewController: UITableViewController {
 		self.isEditing = false
 		
 		var allSymbols = BTCHelper.symbols
-		let currentSymbols = self.currencies.map{ $0.symbol }
+		let list: [Currency] = self.currencies.filter({ $0 is Currency }) as! [Currency]
+		let currentSymbols = list.map{ $0.symbol }
 		
 		for symbol in currentSymbols {
 			if let index = allSymbols.index(of: symbol) {
@@ -129,15 +140,25 @@ class ViewController: UITableViewController {
 extension ViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		if indexPath.section == 0 {
-			let cell: TableCurrencyCell = tableView.dequeueReusableCell(indexPath: indexPath)
-			cell.update(self.currencies[indexPath.row])
-			return cell
+			let item = self.currencies[indexPath.row]
+			if item is Currency {
+				let cell: TableCurrencyCell = tableView.dequeueReusableCell(indexPath: indexPath)
+				cell.update(item as! Currency)
+				return cell
+			}
+			if item is String {
+				let cell: TableCurrencyChartCell = tableView.dequeueReusableCell(indexPath: indexPath)
+				cell.symbol = item as! String
+				return cell
+			}
 		}
+		
 		if indexPath.section == 1 {
 			let cell: TablePositionCell = tableView.dequeueReusableCell(indexPath: indexPath)
 			cell.update(self.positions[indexPath.row])
 			return cell
 		}
+		
 		return UITableViewCell()
 	}
 	
@@ -169,7 +190,13 @@ extension ViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return indexPath.section == 0 ? 50.0 : 100.0
+		if indexPath.section == 0 {
+			if let _ = self.currencies[indexPath.row] as? Currency {
+				return 50.0
+			}
+			return 120.0
+		}
+		return 100.0
 	}
 	
 	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -183,6 +210,23 @@ extension ViewController {
 	// UITableViewDelegate
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		if indexPath.section == 0 {
+			guard let currency = self.currencies[indexPath.row] as? Currency else { return }
+			let idx = IndexPath(row: indexPath.row + 1, section: 0)
+			if idx.row < self.currencies.count {
+				if let _ = self.currencies[idx.row] as? String {
+					self.currencies.remove(at: idx.row)
+					tableView.deleteRows(at: [idx], with: UITableViewRowAnimation.top)
+					return
+				} else {
+					self.currencies.insert(currency.symbol, at: idx.row)
+				}
+			} else {
+				self.currencies.append(currency.symbol)
+			}
+			tableView.insertRows(at: [idx], with: UITableViewRowAnimation.bottom)
+		}
+		
 		if indexPath.section == 1 {
 			let vc = AddItemVC()
 			vc.position = self.positions[indexPath.row]
@@ -196,6 +240,12 @@ extension ViewController {
 		if editingStyle != .delete { return }
 		if indexPath.section == 0 {
 			self.currencies.remove(at: indexPath.row)
+			if indexPath.row + 1 < self.currencies.count {
+				let nextItem = self.currencies[indexPath.row + 1]
+				if nextItem is String {
+					self.currencies.remove(at: indexPath.row + 1)
+				}
+			}
 			self.saveCurrencies()
 			self.updateNavButtons()
 		}
@@ -206,6 +256,14 @@ extension ViewController {
 		}
 
 		tableView.deleteRows(at: [indexPath], with: .automatic)
+	}
+	
+	override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+		if indexPath.section == 0 {
+			let item = self.currencies[indexPath.row]
+			return item is Currency
+		}
+		return true
 	}
 	
 	override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -254,7 +312,8 @@ extension ViewController {
 	
 	private func fetchCurrencies() {
 		//print("***** FETCH CURRENCIES *****")
-		for currency in self.currencies {
+		let list: [Currency] = self.currencies.filter({ $0 is Currency }) as! [Currency]
+		for currency in list {
 			currency.update()
 		}
 	}
@@ -472,6 +531,56 @@ class TableCurrencyCell: UITableViewCell {
 		UIView.animate(withDuration: 1.0, animations: {
 			self.viewChange.backgroundColor = .bg
 		})
+	}
+	
+	required init(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)!
+	}
+}
+
+class TableCurrencyChartCell: UITableViewCell {
+	var symbol: String = "" {
+		didSet {
+			self.dataSource.decimals = symbol.uppercased() == "XRPEUR" ? 4 : 2
+			self.dataSource.fetch(symbol: symbol.uppercased(), interval: 10)
+			self.lblInterval.text = " \(self.dataSource.interval) min "
+		}
+	}
+	private let dataSource = CryptoDataSource()
+	private var chartView: SQCView!
+	private var lblInterval: UILabel!
+	
+	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		
+		self.contentView.backgroundColor = .bg
+		self.accessoryType = .none
+		self.selectionStyle = .none
+		
+		let settings = self.dataSource.settings
+		settings.borders = [.bottom, .right]
+		settings.borderColor = .bgSecondary
+		settings.axisTextColor = .text
+		settings.axisRefPriceTextColor = .text
+		settings.gridColor = .bgSecondary
+		settings.bgColor = .bg
+		settings.noChange = .text
+
+		self.chartView = SQCView(dataSource: self.dataSource, showLeftAxis: false, showSelection: false)
+		self.contentView.addSubview(self.chartView)
+		
+		self.lblInterval = UIComponents.label(parent: self.chartView, bgColor: UIColor(white: 0.0, alpha: 0.5), text: "--", textColor: .textSecondary, textAlignment: .left)
+		self.lblInterval.font = UIFont.boldSystemFont(ofSize: 11.0)
+		
+		var cm = ConstraintsManager(views: ["cv": self.chartView, "lblInterval": lblInterval])
+		cm.add("H:|[cv]|")
+		cm.add("V:|[cv]|")
+		cm.add("H:|-4-[lblInterval]")
+		cm.add("V:|-4-[lblInterval]")
+		cm.activate()
+		
+		self.chartView.showCurrentPrice = false
+		self.chartView.change(type: .line)
 	}
 	
 	required init(coder aDecoder: NSCoder) {
