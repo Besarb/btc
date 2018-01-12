@@ -1,0 +1,27 @@
+[
+{"open": 20.54, "high": 20.71, "low": 20.39, "close": 20.43, "timestamp": 1431985400.0, "volume": 7761030.0},
+{"open": 20.41, "high": 20.54, "low": 20.31, "close": 20.41, "timestamp": 1431985410.0, "volume": 6069934.0},
+{"open": 20.31, "high": 20.60, "low": 20.31, "close": 20.58, "timestamp": 1431985420.0, "volume": 5126299.0},
+
+{"open": 20.41, "high": 20.74, "low": 20.36, "close": 20.58, "timestamp": 1431985440.0, "volume": 7684240.0},
+{"open": 20.69, "high": 20.93, "low": 20.65, "close": 20.90, "timestamp": 1431985450.0, "volume": 7852513.0},
+
+
+{"open": 20.59, "high": 20.64, "low": 20.45, "close": 20.56, "timestamp": 1431985480.0, "volume": 6367152.0},
+{"open": 20.61, "high": 20.73, "low": 20.54, "close": 20.63, "timestamp": 1431985490.0, "volume": 9780365.0},
+{"open": 20.65, "high": 21.02, "low": 20.64, "close": 21.02, "timestamp": 1431985500.0, "volume": 10060693.0},
+{"open": 20.91, "high": 22.16, "low": 20.87, "close": 21.77, "timestamp": 1431985510.0, "volume": 23255694.0},
+
+
+
+{"open": 20.80, "high": 21.02, "low": 20.75, "close": 20.78, "timestamp": 1431985550.0, "volume": 10694367.0},
+{"open": 20.74, "high": 20.82, "low": 20.43, "close": 20.50, "timestamp": 1431985560.0, "volume": 9398093.0},
+{"open": 20.33, "high": 20.53, "low": 20.24, "close": 20.32, "timestamp": 1431985570.0, "volume": 8310842.0},
+{"open": 20.20, "high": 20.30, "low": 19.99, "close": 20.28, "timestamp": 1431985580.0, "volume": 6013596.0},
+{"open": 19.75, "high": 20.16, "low": 19.68, "close": 20.01, "timestamp": 1431985590.0, "volume": 8223312.0},
+{"open": 19.80, "high": 19.89, "low": 19.58, "close": 19.58, "timestamp": 1431985600.0, "volume": 10399805.0},
+{"open": 19.69, "high": 20.03, "low": 19.62, "close": 19.83, "timestamp": 1431985610.0, "volume": 7277326.0},
+{"open": 19.78, "high": 19.87, "low": 19.66, "close": 19.68, "timestamp": 1431985620.0, "volume": 5896266.0},
+{"open": 19.63, "high": 19.67, "low": 19.37, "close": 19.55, "timestamp": 1431985630.0, "volume": 5053511.0},
+{"open": 19.31, "high": 19.48, "low": 19.23, "close": 19.39, "timestamp": 1431985640.0, "volume": 4999215.0}
+]
