@@ -80,6 +80,7 @@ class TableCurrencyCell: UITableViewCell {
 	
 	private var lblCurrency: UILabel!
 	private var lblSell: UILabel!
+	private var lblChange: UILabel!
 	
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -91,16 +92,20 @@ class TableCurrencyCell: UITableViewCell {
 		
 		self.lblCurrency = UIComponents.label(parent: self.contentView, bgColor: bgColor, text: "-", textColor: .black)
 		self.lblSell = UIComponents.label(parent: self.contentView, bgColor: bgColor, text: "-", textColor: .black, textAlignment: .right)
-		
+		self.lblChange = UIComponents.label(parent: self.contentView, bgColor: bgColor, text: "-", textColor: .black, textAlignment: .right)
+
 		self.lblCurrency.font = UIFont.boldSystemFont(ofSize: 13.0)
 		self.lblSell.font = UIFont.boldSystemFont(ofSize: 13.0)
+		self.lblChange.font = UIFont.boldSystemFont(ofSize: 13.0)
+
+		var cm = ConstraintsManager(views: ["lblCurrency": lblCurrency, "lblSell": lblSell, "lblChange": lblChange])
 		
-		var cm = ConstraintsManager(views: ["lblCurrency": lblCurrency, "lblSell": lblSell])
-		
-		cm.add("H:|-[lblCurrency]-(>=10)-[lblSell]-|")
+		cm.add("H:|-[lblCurrency]-(>=10)-[lblChange]-|")
+		cm.add(item: lblSell, attribute: .right, relatedBy: .equal, toItem: self.contentView, attribute: .centerX, multiplier: 1.0, constant: 30.0)
 		cm.add("V:|[lblCurrency]|")
 		cm.add("V:|[lblSell]|")
-		
+		cm.add("V:|[lblChange]|")
+
 		cm.activate()
 	}
 	
@@ -110,6 +115,8 @@ class TableCurrencyCell: UITableViewCell {
 		BTCRequest.fetch(symbol: currency.symbol) { (currency) in
 			guard let c = currency else { return }
 			self.lblSell.text = c.sell.fmt(decimals: c.decimals)
+			self.lblChange.text = "\(c.change.fmt(decimals: c.decimals)) (\(c.changePercent.fmt(decimals: 2))%)"
+			self.lblChange.textColor = c.change.plColor
 		}
 	}
 	
